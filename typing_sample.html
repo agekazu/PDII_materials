@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>typing_sample</title>
-    <script language="JavaScript" src="">
+    <script language="JavaScript">
       var canvas;
       var context;
       //画面に表示する文字列のオブジェクト群
@@ -12,7 +12,8 @@
       var input = new String();
       //入力すべき文字の位置
       var charNumber;
-      var text="ABC";
+      //問題文を格納
+      var text;
 
       onload = function(){
         init();
@@ -22,34 +23,20 @@
         whatKey();
       }
 
-//      //ファイルを読み込む
-//      function QuestionStatement(){
-//        var HelloWorld = "helloworld.c";
-//        var fs = new ActiveXObject("Scripting.FileSystemObject");
-//        var qs = fs.OpenTextFile("./helloworld.c",1,true);
-//        var str1=qs.ReadAll();
-//        qs.close();
-//        console.log(str1);
-//        //ファイルリーダーオブジェクトを生成
-//        //        var reader = new FileReader();                  
-//        //        // 読み込んだファイルの中身をテキストエリアにセット
-//        //        qs = reader.readAsText("./helloworld.c");
-//        //        console.log(qs);
-//      }
-//
       function init(){
         canvas = document.getElementById("typing_Canvas");
         canvas.width  = 1000;
         canvas.height = 600;
         context = canvas.getContext('2d');
-//        text = QuestionStatement();
         charNumber = 0;
+        text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         //問題文
         characterList.push = (new character("#00000","20pt Osaka",text,200,40,500,20));
         //出題文字
         characterList.push = 
         (new character("#000000","20pt Osaka","出題文字=> " + text.charAt(charNumber),200,120,500,20));
       }
+
       //文字を配置するメソッド
       function character(_color,_font,_text,_x,_y,_width,_height){
         this.text = _text;
@@ -58,10 +45,9 @@
         this.width = _width;
         this.height = _height;
         this.color = _color;
-        //文字色
         context.fillStyle = _color;
-        //フォント
         context.font = _font;
+        //文字を描画
         context.fillText(this.text,this.x,this.y,this.width,this.height);            
       }
 
@@ -76,30 +62,31 @@
         //正しい入力か？
         if(String.fromCharCode(event.keyCode) == this.a_char){
           console.log("正解です");
-          charNumber++;
-          //表示を
-          //入力済み文字列に加える
-          input += this.a_char
           repaint();
           }else {
           console.log("違います");
         }
       }
 
+      //正しい入力時に、文字の色を変える
       function repaint(){
-        //入力済みの文字列を灰色に描画
-        characterList[2] = (new character("#7d7d7d","20pt Osaka",input,200,40,500,20));
+        var cl=characterList.length;
+        
         //一度クリアに
-        //        characterList[1].
-        context.clearRect(200,120,500,20);
-        //次の文字を出題文字へ
-        new character("#000000","20pt Osaka","出題文字=> " + text.charAt(charNumber),200,120,500,20);
+        context.clearRect(0,0,1000,600);
+        characterList[0] = (new character("#00000","20pt Osaka",text,200,40,500,20));
+        //入力済み文字列に加える
+        input += this.a_char
+        //入力済みの文字列を灰色に描画
+        characterList[cl] = (new character("#7d7d7d","20pt Osaka",input,200,40,500,20));
+        charNumber++;
+        //次の文字を出題文字として出力
+        characterList[cl+1](new character("#000000","20pt Osaka","出題文字=> " + text.charAt(charNumber),200,120,500,20));
       }
 
     </script>
-  </body>
-  <body>
-    <canvas id="typing_Canvas" ></canvas>
-  </body>
-</html>
+    <body>
+      <canvas id="typing_Canvas" ></canvas>
+    </body>
+  </html>
 
