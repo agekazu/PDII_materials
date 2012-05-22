@@ -15,10 +15,7 @@ filename_pattern = Regexp.new(/^==.*==$/)
 exclude_pattern1= Regexp.new(/.*による記述は以下のようになる。$/)
 exclude_pattern2= Regexp.new(/^<.*source.*>$/)
 
-hello = String.new
-f = "hoge"
 filename = "./HelloWorlds.txt"
-date = String.new
 file = open(filename)
 
 while data = file.gets #1行ずつ読み込む
@@ -29,12 +26,9 @@ while data = file.gets #1行ずつ読み込む
     #dateから=を除く
     f=data.delete!("=\s")
     puts f
-    #ファイルが存在するか？
-    if !File.exist?(f)
-      #fという名前のファイルを作成
-      hello=File.open(f,'w+')
-    end
-    
+    #fという名前のファイルを作成
+    hello=File.open(f,'w+')
+
   elsif exclude_pattern1 =~ data||exclude_pattern2 =~ data
     #なにもしない
   else
