@@ -1,0 +1,7 @@
+ MODULE HellowWorld;
+ FROM InOut IMPORT WriteString, WriteLn;
+ BEGIN
+ WriteString('Hello, world!');
+ WriteLn
+ END HellowWorld.
+

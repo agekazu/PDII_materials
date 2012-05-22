@@ -1,0 +1,20 @@
+[[ALGOL|ALGOL 60]]による記述は以下のようになる。なお、文字列出力の[[副作用 (プログラム)|副作用]]を持つ標準手続き<code>outstring</code>は定義ずみであるとする。
+
+基準言語
+
+ <code>'''procedure''' hello (channel) ;
+   '''value''' channel ;
+   '''integer''' channel ;
+   '''begin'''
+   outstring (channel, 'Hello, world!')
+   '''end''' hello ;</code>
+
+金物での表現 (例)
+
+ <code>.PROCEDURE HELLO (CHANNEL) ;
+   .VALUE CHANNEL ;
+   .INTEGER CHANNEL ;
+   .BEGIN
+   OUTSTRING (CHANNEL, .'Hello, world!')
+   .END HELLO ;</code>
+

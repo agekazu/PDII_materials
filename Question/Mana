@@ -1,0 +1,5 @@
+ action HelloWorldActor::init
+ {
+  print("Hello, world!\n");
+ }
+

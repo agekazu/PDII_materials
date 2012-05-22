@@ -1,0 +1,7 @@
+[[COBOL]]による記述は以下のようになる(自由書式の場合)。
+ IDENTIFICATION DIVISION.
+ PROGRAM-ID. HELLO-WORLD.
+ PROCEDURE DIVISION.
+ DISPLAY "Hello, world!".
+ STOP RUN.
+
