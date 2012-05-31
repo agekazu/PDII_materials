@@ -1,0 +1,56 @@
+<html>
+	<meta charset="UTF-8" />
+	<head>
+		<title>たいとる</title>
+		<script type="text/javascript" src="SceneCanvas.js"></script>
+		<script type="text/javascript">
+			onload = function(){
+				
+				
+				var game = new Game(document.getElementById('mainCanvas'),1000,600);
+				game.init = function(){
+					var scene01 = new Scene01(this,game.context,"kurose");
+					this.setScene(scene01);
+				}
+				game.start();
+				
+				
+				function Scene01(game,context,name){
+          //Sceneを継承
+					this.__proto__ = new Scene(game,context,name);
+					this.init = function(){
+						var parts01 = new Parts01(this,"Bar",100,100,100,100);
+						this.addParts(parts01);
+					}
+				}
+				
+				
+				
+				
+				function Parts01(scene,name,x,y,width,height){
+					this.__proto__ = new Parts(scene,name,x,y,width,height);
+					console.log(this);
+					var time = 0;
+					this.init = function(){
+					}
+					this.loop = function(){
+						this.context.strokeRect(this.x,this.y,this.width,this.height);
+						this.x+=2;
+						time++;
+						if(time == 30*5){
+							this.delete();
+						}
+					}
+				}
+				
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div align="center">
+			<canvas id='mainCanvas'></canvas>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>ソース打</title>
+    <!--各種jsファイルの読み込み-->
+    <script language="JavaScript" src="SceneCanvas.js"></script>
+    <script language="JavaScript" src="TitleScene.js"></script>
+    <script language="JavaScript" src="PlayScene.js"></script>
+    
+    <script language="JavaScript">
+      
+      //htmlが全て読み込まれた後実行される
+      onload = function(){
+        var game = new Game(document.getElementById('mainCanvas'),1000,600);
+        
+        //game.~ => gameのメンバ変数になる
+        //TitleScene=>Title.js
+        var titleScene = new TitleScene(game,game.context,"titleScene");
+        //game.gameScenes.push(titleScene);
+        game.gameScenes['titleScene'] = titleScene;
+        game.setScene(titleScene);
+        
+        var playScene = new PlayScene(game,game.context,"playScene");
+        //game.gameScenes.push(playScene);
+        game.gameScenes['playScene'] = playScene;
+        game.start();
+      }
+
+    </script>
+  </head>
+  <body>
+    <canvas id='mainCanvas'></canvas>
+  </body>
+</html>
+
