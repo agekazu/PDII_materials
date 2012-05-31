@@ -9,10 +9,10 @@ function Scene(game,context,name){
   this.partsList = new Array();
   this.init = function(){
   }
-
+  
 }
 
-//memo:prototype=>Sceneをオブジェクト化すると、この関数を生成したオブジェクトから参照できる
+//memo:prototype=>あるメソッドをオブジェクト化すると、そのオブジェクトから参照できるメソッド
 
 /******************************************************
   Sceneの持つprototype
@@ -134,11 +134,13 @@ Game.prototype.start = function(){
 }
 
 Game.prototype.addScene= function(scene){
-  console.log(scene.name);
   this.gameScenes[scene.name]=scene;
 }
-  
-  
+
+Game.prototype.changeScene = function(sceneName){
+  this.setScene(this.gameScenes[sceneName]);
+}
+
 //画面の切り替えを行う
 Game.prototype.setScene = function(scene){
   this.scene = scene;
