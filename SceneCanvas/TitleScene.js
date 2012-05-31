@@ -9,9 +9,10 @@ function TitleScene(game,context,name){
 
     var startButton = new StartButton(this,"startButton",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2+10,buttonwidth,buttonheight);
 
-    var buttonCharacter = new StartCharacter(this,"tartText","Start!","19px",(game.canvas.width/2)-buttonwidth,(game.canvas.height)/2+40,100,20);
 
-    var titleCharacter = new StartCharacter(this,"startText","ソー打!!!","intalic bold 18px 'Monotype Corsiva'",(game.canvas.width/2)-(100/2),50,100,20);
+    var buttonCharacter = new StartCharacter(this,"startText","Start!","20pt Arial",(game.canvas.width/2)-buttonwidth,(game.canvas.height)/2+40,100,20);
+
+    var titleCharacter = new StartCharacter(this,"startText","ソー打!!!","30pt Arial",(game.canvas.width/2)-(100/2),50,100,20);
 
     this.addParts(startButton);
     this.addParts(buttonCharacter);
@@ -41,14 +42,11 @@ function StartButton(scene,name,x,y,width,height){
 //文字列の描画
 function StartCharacter(scene,name,text,font,x,y,width,height){
   this.__proto__ = new Parts(scene,name,x,y,width,height);
-  //loop関数を上書き
-  this.context.font = font;
-  console.log("font=>",font);
-  console.log(this.context);
-  console.log(this.context.font);
+  this.font = font;
   //loop関数を上書き
   this.loop = function(){
-    //文字の描画
+       this.context.font = this.font;
+    //font変更
     this.context.fillText(text,this.x,this.y);            
   }
 }
