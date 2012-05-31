@@ -7,12 +7,11 @@ function TitleScene(game,context,name){
     var buttonwidth = 200;
     var buttonheight = 100;
 
-    var startButton = new StartButton(this,"startButton",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2+10,buttonwidth,buttonheight);
+    var startButton = new StartButton(this,"startButton",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
 
+    var buttonCharacter = new StartCharacter(this,"startText","Start!","30pt Arial",(game.canvas.width/2)-buttonwidth+20,(game.canvas.height)/2+buttonheight+10,100,20);
 
-    var buttonCharacter = new StartCharacter(this,"startText","Start!","20pt Arial",(game.canvas.width/2)-buttonwidth,(game.canvas.height)/2+40,100,20);
-
-    var titleCharacter = new StartCharacter(this,"startText","ソー打!!!","30pt Arial",(game.canvas.width/2)-(100/2),50,100,20);
+    var titleCharacter = new StartCharacter(this,"startText","ソー打","30pt Arial",(game.canvas.width/2)-(100/2),50,100,20);
 
     this.addParts(startButton);
     this.addParts(buttonCharacter);
@@ -34,7 +33,8 @@ function StartButton(scene,name,x,y,width,height){
   this.onclick = function(e){
     if(e.clientX >= this.x && e.clientX <= this.x + this.width
         && e.clientY >= this.y && e.clientY <= this.y+this.height){
-          this.game.setScene(this.game.gameScenes['playScene']);
+          //this.game.setScene(this.game.gameScenes['playScene']);
+          this.game.changeScene("playScene");
         } 
   }
 }
