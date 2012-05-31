@@ -18,12 +18,14 @@
         //TitleScene=>Title.js
         var titleScene = new TitleScene(game,game.context,"titleScene");
         //game.gameScenes.push(titleScene);
-        game.gameScenes['titleScene'] = titleScene;
+        //game.gameScenes['titleScene'] = titleScene;
+        game.addScene(titleScene);
         game.setScene(titleScene);
         
         var playScene = new PlayScene(game,game.context,"playScene");
         //game.gameScenes.push(playScene);
-        game.gameScenes['playScene'] = playScene;
+        //game.gameScenes['playScene'] = playScene;
+        game.addScene(playScene);
         game.start();
       }
 
