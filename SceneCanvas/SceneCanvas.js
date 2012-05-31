@@ -110,10 +110,11 @@ function Game(canvas,width,height){
   this.canvas.height = height;
   this.context = this.canvas.getContext('2d');
   this.scene;
-  //各シーン格納される連想配列の宣言
+  //各シーンが格納される連想配列の宣言
   this.gameScenes = new Array();
   this.timerId;
 }
+
 /******************************************************
   Gameの持つprototype
  ******************************************************/
@@ -132,6 +133,12 @@ Game.prototype.start = function(){
   }
 }
 
+Game.prototype.addScene= function(scene){
+  console.log(scene.name);
+  this.gameScenes[scene.name]=scene;
+}
+  
+  
 //画面の切り替えを行う
 Game.prototype.setScene = function(scene){
   this.scene = scene;
