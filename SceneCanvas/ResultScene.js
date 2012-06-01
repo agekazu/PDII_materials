@@ -30,7 +30,7 @@ function ResultButton(scene,name,imgName,x,y,width,height){
   this.onclick = function(e){
     if(e.clientX >= this.x && e.clientX <= this.x + this.width
         && e.clientY >= this.y && e.clientY <= this.y+this.height){
-          this.game.changeScene("title");
+          this.game.changeScene("titleScene");
         } 
   }
 }
