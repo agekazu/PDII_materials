@@ -25,12 +25,15 @@ function ResultButton(scene,name,imgName,x,y,width,height){
     img.src = "./GUI/" + imgName;
     //GUI部品の画像の描画
     this.context.drawImage(img,this.x,this.y);
-  }
+  }    
   //clickされた座標を取得、ボタンの範囲内かを調べる
   this.onclick = function(e){
-    if(e.clientX >= this.x && e.clientX <= this.x + this.width
-        && e.clientY >= this.y && e.clientY <= this.y+this.height){
+    var mouseX = this.game.mouseX;
+    var mouseY = this.game.mouseY;
+    if(mouseX >= this.x && mouseX <= this.x + this.width
+        && mouseY >= this.y && mouseY <= this.y+this.height){
           this.game.changeScene("titleScene");
+          console.log("title画面へ遷移");
         } 
   }
 }
@@ -39,22 +42,22 @@ function ResultButton(scene,name,imgName,x,y,width,height){
 /*
 //ボタンの描画
 function ResultButton(scene,name,x,y,width,height){
-  //Partsを継承
-  this.__proto__ = new Parts(scene,name,x,y,width,height);
-  //loop関数を上書き
-  this.loop = function(){
-    //四角形の描画
-    this.context.strokeRect(this.x,this.y,this.width,this.height);
-  }
+//Partsを継承
+this.__proto__ = new Parts(scene,name,x,y,width,height);
+//loop関数を上書き
+this.loop = function(){
+//四角形の描画
+this.context.strokeRect(this.x,this.y,this.width,this.height);
+}
 
-  //clickされた座標を取得、ボタンの範囲内かを調べる
-  this.onclick = function(e){
-    if(e.clientX >= this.x && e.clientX <= this.x + this.width
-        && e.clientY >= this.y && e.clientY <= this.y+this.height){
-          //this.game.setScene(this.game.gameScenes['playScene']);
-          this.game.changeScene("titleScene");
-        } 
-  }
+//clickされた座標を取得、ボタンの範囲内かを調べる
+this.onclick = function(e){
+if(e.clientX >= this.x && e.clientX <= this.x + this.width
+&& e.clientY >= this.y && e.clientY <= this.y+this.height){
+//this.game.setScene(this.game.gameScenes['playScene']);
+this.game.changeScene("titleScene");
+} 
+}
 }
 */
 //文字列の描画

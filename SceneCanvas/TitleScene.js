@@ -5,7 +5,7 @@ function TitleScene(game,context,name){
   this.init = function(){
     //startButtonでボタンを描画
     var buttonwidth = 200;
-    var buttonheight = 75;
+    var buttonheight = 100;
 
 //    var startButton = new StartButton(this,"startButton",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
     var startButton = new StartButton(this,"startButton","practice.gif",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
@@ -30,11 +30,14 @@ function StartButton(scene,name,imgName,x,y,width,height){
     //GUI部品の画像の描画
     this.context.drawImage(img,this.x,this.y);
   }
-  //clickされた座標を取得、ボタンの範囲内かを調べる
+ //clickされた座標を取得、ボタンの範囲内かを調べる
   this.onclick = function(e){
-    if(e.clientX >= this.x && e.clientX <= this.x + this.width
-        && e.clientY >= this.y && e.clientY <= this.y+this.height){
+    var mouseX = this.game.mouseX;
+    var mouseY = this.game.mouseY;
+    if(mouseX >= this.x && mouseX <= this.x + this.width
+        && mouseY >= this.y && mouseY <= this.y+this.height){
           this.game.changeScene("playScene");
+          console.log("Play画面へ遷移");
         } 
   }
 }
