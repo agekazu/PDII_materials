@@ -1,28 +1,33 @@
+
 function PlayScene(game,context,name){
   //この関数はSceneを元にして出来ている(継承)
   this.__proto__ = new Scene(game,context,name);
+
+  this.onkeydown= function(){
+    //typingGame.jsのwhatKey()へ
+    whatKey();
+  }
   //初期化処理
   this.init = function(){
-    var playButton = new PlayButton(this,"playButton",100,100,100,100);
-    this.addParts(playButton);
+    //問題文
+    var text ="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+    var questionCharacter= new PlayCharacter(this,"QuestionCharacter",text,"30pt Arial",100,100,100,100);
+
+    this.addParts(questionCharacter);
   }
 } 
 
-function PlayButton(scene,name,x,y,width,height){
+function PlayCharacter(scene,name,text,font,x,y,width,height){
   this.__proto__ = new Parts(scene,name,x,y,width,height);
+  this.font = font;
+  this.text = text;
+  //loop関数を上書き
   this.loop = function(){
-    //赤で描画
-    this.context.strokeStyle = 'rgb(255,0,0)';
-    this.context.strokeRect(this.x,this.y,this.width,this.height);
-  }
-  
-  this.onclick = function(e){
-    if(e.clientX >= this.x && e.clientX <= this.x + this.width
-        && e.clientY >= this.y && e.clientY <= this.y+this.height){
-          this.game.changeScene("resultScene");
-          console.log("result画面へ遷移");
-        } 
+    //font変更;
+    this.context.font = this.font;
+    this.context.fillText(text,this.x,this.y);            
   }
 }
+
 
 
