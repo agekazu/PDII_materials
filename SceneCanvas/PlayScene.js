@@ -6,10 +6,9 @@ function PlayScene(game,context,name){
   this.__proto__ = new Scene(game,context,name);
   //初期化処理
   this.init = function(){
-    //問題文
-    //var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial",100,100,100,100);
-    var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial",100,100,100,100);
+    var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial","black",100,100,100,100);
 
+    console.log(this);
     onkeydown= function(){
       //textの取得
       var text = getQuestion();
@@ -19,15 +18,20 @@ function PlayScene(game,context,name){
   }
 } 
 
-function PlayCharacter(scene,name,text,font,x,y,width,height){
+function PlayCharacter(scene,name,text,font,color,x,y,width,height){
   this.__proto__ = new Parts(scene,name,x,y,width,height);
-  this.font = font;
+  this.x = x;
+  this.y = y;
   this.text = text;
+  this.font = font;
+  this.color = color;
+
   //loop関数を上書き
   this.loop = function(){
     //font変更;
+    this.context.color = this.color;
     this.context.font = this.font;
-    this.context.fillText(text,this.x,this.y);            
+    this.context.fillText(this.text,this.x,this.y);            
   }
 }
 
@@ -60,5 +64,6 @@ function whatKey(text){
 
 function repaint(_a_char) {
   this.a_char = _a_char;
-
+  var completedCharacter= new PlayCharacter(this,"CompletedCharacter",this.a_char,"30pt Arial","gray",100,100,100,100);
+  
 }
