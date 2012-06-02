@@ -1,10 +1,13 @@
+//現在出題されている文字の先頭からの文字数
+__charNumber__ = 0;
+
 function PlayScene(game,context,name){
   //この関数はSceneを元にして出来ている(継承)
   this.__proto__ = new Scene(game,context,name);
   //初期化処理
   this.init = function(){
     //問題文
-    var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial",100,100,100,100);
+    //var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial",100,100,100,100);
     var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial",100,100,100,100);
 
     onkeydown= function(){
@@ -37,25 +40,25 @@ function getQuestion(){
 //入力文字と出題文字が同じかを確かめるメソッド
 function whatKey(text){
   //現在打つべき文字の先頭からの文字数
-  var charNumber = 0;
   this.text = text;
-  
+
   //charNumber文字目の文字列のUnicode値をa_charへ
-  this.a_char = text.charAt(charNumber);
-  console.log("出題文字=> " + this.a_char);
+  var a_char = this.text.charAt(__charNumber__);
+  console.log("出題文字=> " + a_char);
   console.log("入力された文字=> " + String.fromCharCode(event.keyCode));
 
   //入力が正しいか？
-  if(String.fromCharCode(event.keyCode) == this.a_char){
+  if(String.fromCharCode(event.keyCode) == a_char){
     console.log("正解です");
-    charNumber++;
-    repaint();
+    __charNumber__++
+      repaint(a_char);
   }else {
     console.log("違います");
   }
 }
 
 
-function repaint() {
-  
+function repaint(_a_char) {
+  this.a_char = _a_char;
+
 }
