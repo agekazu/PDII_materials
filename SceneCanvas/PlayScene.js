@@ -1,7 +1,8 @@
 //現在出題されている文字の先頭からの文字数
 __charNumber__ = 0;
 //入力済み文字列が格納される
-__input__ = "ABC";
+__input__ = new String();
+__completedCharacter__ = null;
 
 function PlayScene(game,context,name){
   //この関数はSceneを元にして出来ている(継承)
@@ -9,15 +10,16 @@ function PlayScene(game,context,name){
   //初期化処理
   this.init = function(){
     var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial","#000000",0,100,100,100,100);
-    var completedCharacter= new PlayCharacter(this,"CompletedCharacter",__input__,"30pt Arial","#7d7d7d",1,100,100,100,100);
+    __completedCharacter__ = new PlayCharacter(this,"CompletedCharacter",__input__,"30pt Arial","#7d7d7d",1,100,100,100,100);
 
     onkeydown= function(){
       //textの取得
       var text = getQuestion();
       whatKey(text);
     }
+    console.log(__completedCharacter__);
     this.addParts(questionCharacter);
-    this.addParts(completedCharacter);
+    this.addParts(__completedCharacter__);
   }
 } 
 
@@ -57,15 +59,16 @@ function whatKey(text){
   //入力が正しいか？
   if(String.fromCharCode(event.keyCode) == a_char){
     console.log("正解です");
-    __charNumber__++
-      repaint(a_char);
+    __charNumber__++;
+    repaint(a_char);
   }else {
     console.log("違います");
   }
 }
 
 function repaint(_a_char) {
-  this._a_char = _a_char;
-  __input__ += this._a_char;
-  console.log(__input__);
+  this.a_char = _a_char;
+  __input__ += this.a_char;
+  //入力済み文字列を変更
+  __completedCharacter__.text = __input__;
 }
