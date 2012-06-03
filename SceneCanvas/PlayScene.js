@@ -1,24 +1,27 @@
 //現在出題されている文字の先頭からの文字数
 __charNumber__ = 0;
+//入力済み文字列が格納される
+__input__ = "ABC";
 
 function PlayScene(game,context,name){
   //この関数はSceneを元にして出来ている(継承)
   this.__proto__ = new Scene(game,context,name);
   //初期化処理
   this.init = function(){
-    var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial","black",100,100,100,100);
+    var questionCharacter= new PlayCharacter(this,"QuestionCharacter",getQuestion(),"30pt Arial","#000000",0,100,100,100,100);
+    var completedCharacter= new PlayCharacter(this,"CompletedCharacter",__input__,"30pt Arial","#7d7d7d",1,100,100,100,100);
 
-    console.log(this);
     onkeydown= function(){
       //textの取得
       var text = getQuestion();
       whatKey(text);
     }
     this.addParts(questionCharacter);
+    this.addParts(completedCharacter);
   }
 } 
 
-function PlayCharacter(scene,name,text,font,color,x,y,width,height){
+function PlayCharacter(scene,name,text,font,color,layer,x,y,width,height){
   this.__proto__ = new Parts(scene,name,x,y,width,height);
   this.x = x;
   this.y = y;
@@ -28,8 +31,8 @@ function PlayCharacter(scene,name,text,font,color,x,y,width,height){
 
   //loop関数を上書き
   this.loop = function(){
+    this.context.fillStyle = this.color;
     //font変更;
-    this.context.color = this.color;
     this.context.font = this.font;
     this.context.fillText(this.text,this.x,this.y);            
   }
@@ -61,9 +64,8 @@ function whatKey(text){
   }
 }
 
-
 function repaint(_a_char) {
-  this.a_char = _a_char;
-  var completedCharacter= new PlayCharacter(this,"CompletedCharacter",this.a_char,"30pt Arial","gray",100,100,100,100);
-  
+  this._a_char = _a_char;
+  __input__ += this._a_char;
+  console.log(__input__);
 }
