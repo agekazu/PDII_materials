@@ -35,20 +35,20 @@ function getQuestion(){
 
 function PlayCharacter(scene,name,textList,font,color,layer,x,y,width,height){
   this.__proto__ = new Parts(scene,name,x,y,width,height);
+  this.x = x;
+  this.y = y;
+  this.font = font;
+  this.color = color;
   this.textList = textList;
   //loop関数を上書き
   this.loop = function(){
     //配列textListをy座標+20しながら表示  
     this.textList.forEach(function(text){
-      this.x = x;
-      this.y = y;
-      this.font = font;
-      this.color = color;
       this.context.fillStyle = this.color;
       this.context.font = this.font;
-      this.context.fillText(text,x,y);            
-      this.y += 20;
-    });
+      this.context.fillText(text,this.x,this.y);            
+      this.y += 10;
+    },this);
   }
 }
 //入力文字と出題文字が同じかを確かめるメソッド
