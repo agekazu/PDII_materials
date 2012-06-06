@@ -3,27 +3,22 @@ function TitleScene(game,context,name){
   this.__proto__ = new Scene(game,context,name);
 
   this.init = function(){
-    //startButtonでボタンを描画
+    //ボタン(画像)の大きさ
     var buttonwidth = 200;
-    var buttonheight = 100;
+    var buttonheight = 75;
 
-//    var startButton = new StartButton(this,"startButton",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
-    var startButton = new StartButton(this,"startButton","practice.gif",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
+    var startButton = new StartButton(this,"startButton",1,"practice.gif",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
 
-//    var startButtonCharacter = new StartCharacter(this,"startText","Start!","30pt Arial",(game.canvas.width/2)-buttonwidth+20,(game.canvas.height)/2+buttonheight+10,100,20);
-
-
-    var startTitleCharacter = new StartCharacter(this,"startText","ソー打","30pt Arial",(game.canvas.width/2)-(100/2),50,100,20);
+    var startTitleCharacter = new StartCharacter(this,"startText","ソー打","30pt Arial",1,(game.canvas.width/2)-(100/2),50,100,20);
 
     this.addParts(startButton);
- //   this.addParts(startButtonCharacter);
     this.addParts(startTitleCharacter);
   }
 } 
 
 //GUI部品(gif)の描画
-function StartButton(scene,name,imgName,x,y,width,height){
-  this.__proto__ = new Parts(scene,name,x,y,width,height);
+function StartButton(scene,name,layer,imgName,x,y,width,height){
+  this.__proto__ = new Parts(scene,name,layer,x,y,width,height);
   var img = new Image();
   this.loop = function(){
     img.src = "./GUI/" + imgName;
@@ -36,8 +31,8 @@ function StartButton(scene,name,imgName,x,y,width,height){
     var mouseY = this.game.mouseY;
     if(mouseX >= this.x && mouseX <= this.x + this.width
         && mouseY >= this.y && mouseY <= this.y+this.height){
-          this.game.changeScene("playScene");
           console.log("Play画面へ遷移");
+          this.game.changeScene("playScene");
         } 
   }
 }
@@ -63,8 +58,8 @@ function StartButton(scene,name,imgName,x,y,width,height){
 //  }
 
   //文字列の描画
-  function StartCharacter(scene,name,text,font,x,y,width,height){
-    this.__proto__ = new Parts(scene,name,x,y,width,height);
+  function StartCharacter(scene,name,text,font,layer,x,y,width,height){
+    this.__proto__ = new Parts(scene,name,layer,x,y,width,height);
     this.font = font;
     //loop関数を上書き
     this.loop = function(){

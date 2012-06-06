@@ -2,8 +2,7 @@
 var __game__;
 var __startTime__;
 var __count__ = 0;
-var __fps__ = 30;
-
+var __fps__ = 60;
 
 //全ての画面が継承するメソッドScene
 function Scene(game,context,name){
@@ -26,6 +25,7 @@ function Scene(game,context,name){
 Scene.prototype.addParts = function(parts){
   this.partsList.push(parts);
   parts.init();
+  this.partsList = this.partsList.sort(function(a,b){return a.layer-b.layer});
 }
 
 //delparts(parts削除)
@@ -49,27 +49,27 @@ Scene.prototype.onclick = function(e){
     obj.onclick(e);
   });
 }
-Scene.prototype.onKeyup = function(){
+Scene.prototype.onKeyup = function(e){
   this.partsList.forEach(function(obj){
-    obj.onKeyup();
+    obj.onKeyup(e);
   });
 }
 
-Scene.prototype.onKeydown = function(){
+Scene.prototype.onkeydown = function(e){
   this.partsList.forEach(function(obj){
-    obj.onKeydown();
+    obj.onkeydown(e);
   });
 }
 
-Scene.prototype.onKeypress = function(){
+Scene.prototype.onKeypress = function(e){
   this.partsList.forEach(function(obj){
-    obj.onKeypress();
+    obj.onKeypress(e);
   });
 }
 
 
 //全ての部品が継承するメソッドParts
-function Parts(scene,name,x,y,width,height){
+function Parts(scene,name,layer,x,y,width,height){
   this.game = scene.game;
   this.scene = scene;
   this.context = scene.context;
@@ -79,6 +79,7 @@ function Parts(scene,name,x,y,width,height){
   this.y = y;
   this.width = width;
   this.height = height;
+  this.layer = layer;
 }
 
 /******************************************************
@@ -100,7 +101,7 @@ Parts.prototype.onclick = function(event){
 Parts.prototype.onKeyup = function(event){
 }
 
-Parts.prototype.onKeydown = function(event){
+Parts.prototype.onkeydown = function(event){
 }
 
 Parts.prototype.onKeypress = function(event){
@@ -128,9 +129,8 @@ function Game(canvas,width,height){
  ******************************************************/
 
 Game.prototype.setFPS = function(fps){
-    __fps__ = fps;
+	__fps__ = fps;
 }
-
 
 Game.prototype.init = function(){
 }
@@ -145,17 +145,22 @@ Game.prototype.start = function(){
     __game__.mouseY = e.pageY-__game__.offsetTop;
     __game__.scene.onclick(e);
   }
+  onkeydown = function(e){
+    __game__.scene.onkeydown(e);
+    //tab,spaceを取れるように
+    return false;
+  }
+
 }
 
 Game.prototype.loop = function loop(){
-	var afterTime = ((new Date()).getTime())%100;
-	var beforeTime = (__startTime__.getTime()+(__count__*(1000/__fps__)))%100;
-	setTimeout(function(){
-		loop();
-	},(1000/__fps__)-(afterTime-beforeTime));
-	__game__.scene.loop();
-	//console.log(afterTime-beforeTime);
-	__count__++;
+  var afterTime = ((new Date()).getTime())%100;
+  var beforeTime = (__startTime__.getTime()+(__count__*(1000/__fps__)))%100;
+  setTimeout(function(){
+    loop();
+  },(1000/__fps__)-(afterTime-beforeTime));
+  __game__.scene.loop();
+  __count__++;
 }
 
 Game.prototype.addScene= function(scene){
@@ -168,9 +173,7 @@ Game.prototype.changeScene = function(sceneName){
 
 //画面の切り替えを行う
 Game.prototype.setScene = function(scene){
-  console.log(scene);
   this.scene = scene;
   this.scene.init();
   console.log("Set scene and init "+this.scene.name);
 }
-
