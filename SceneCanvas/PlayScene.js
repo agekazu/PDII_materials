@@ -115,6 +115,7 @@ function whatKey(text,game){
       || (event.keyCode == 32 && " " == a_char)
       || (event.keyCode == 188 && "," == a_char)
       || (event.keyCode == 49 && "!" == a_char)
+      || (event.keyCode == 32 && "0" == a_char)
       ){
         console.log("正解です");
         __charCounter__++;
