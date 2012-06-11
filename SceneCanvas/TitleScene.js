@@ -9,7 +9,7 @@ function TitleScene(game,context,name){
 
     var startTitle = new StartTitle(this,"startTitle",0,"codaTitle.png",(game.canvas.width/2)-250,0,400,400);
 
-    var startButton = new StartButton(this,"startButton",1,"practice.gif",(game.canvas.width/2)-buttonwidth-30,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
+    var startButton = new StartButton(this,"startButton",1,"practice.png",(game.canvas.width/2)-buttonwidth/2,(game.canvas.height)/2 + buttonheight/2,buttonwidth,buttonheight);
 
     this.addParts(startTitle);
     this.addParts(startButton);
