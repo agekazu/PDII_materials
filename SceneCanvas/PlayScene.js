@@ -28,7 +28,7 @@ function PlayScene(game,context,name){
 
 //問題文を返すメソッド
 function getQuestion(kind){
-  var text = "AAA\nBBBBB\nCCCCCCC";
+  var text = "include<stdio.h>\n\tint main(void){\n\t\tprintf(\"Hello,World!\");\n\t\treturn 0;\n}"
 
   switch(kind){
     case "textList":
@@ -87,14 +87,35 @@ function whatKey(text,game){
   //現在打つべき文字の先頭からの文字数
   this.text = text;
 
+  
   //charNumber文字目の文字列のUnicode値をa_charへ
   var a_char = this.text.charAt(__charCounter__);
   console.log("出題文字=> " + a_char);
-  console.log("入力された文字=> " + String.fromCharCode(event.keyCode));
+  console.log("入力された文字=> " + String.fromCharCode(event.keyCode).toLowerCase());
 
   //入力が正しいか？
-  if(String.fromCharCode(event.keyCode) == a_char
-      || (event.keyCode == 13 && "\n" == a_char) ){
+//  if(String.fromCharCode(event.keyCode).toLowerCase() == a_char
+    console.log(a_char.charCodeAt(0));
+    console.log(event.keyCode);
+          
+  if(event.keyCode == a_char.charCodeAt(0) - 32
+      ||(event.keyCode == a_char.charCodeAt(0))
+      || (event.keyCode == 188 && "<" == a_char)
+      || (event.keyCode == 190 && ">" == a_char)
+      || (event.keyCode == 56 && "(" == a_char)
+      || (event.keyCode == 57 && ")" == a_char)
+      || (event.keyCode == 186 && ";" == a_char)
+      || (event.keyCode == 67 && ")" == a_char)
+      || (event.keyCode == 222 && '"' == a_char)
+      || (event.keyCode == 13 && "\n" == a_char)
+      || (event.keyCode == 9 && "\t" == a_char)
+      || (event.keyCode == 219 && "{" == a_char)
+      || (event.keyCode == 221 && "}" == a_char)
+      || (event.keyCode == 190 && "." == a_char)
+      || (event.keyCode == 32 && " " == a_char)
+      || (event.keyCode == 188 && "," == a_char)
+      || (event.keyCode == 49 && "!" == a_char)
+      ){
         console.log("正解です");
         __charCounter__++;
         if(__charCounter__ == this.text.length){
