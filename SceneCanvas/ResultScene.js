@@ -25,10 +25,8 @@ function ResultButton(scene,name,layer,imgName,x,y,width,height){
   var img = new Image();
   this.loop = function(){
     img.src = "./GUI/" + imgName;
-    //GUI部品の画像の描画
     this.context.drawImage(img,this.x,this.y);
   }    
-  //clickされた座標を取得、ボタンの範囲内かを調べる
   this.onclick = function(e){
     var mouseX = this.game.mouseX;
     var mouseY = this.game.mouseY;
@@ -40,15 +38,15 @@ function ResultButton(scene,name,layer,imgName,x,y,width,height){
         } 
   }
 }
- //文字列の描画
-  function ResultCharacter(scene,name,text,font,layer,x,y,width,height){
-    this.__proto__ = new Parts(scene,name,layer,x,y,width,height);
-    this.font = font;
-    //loop関数を上書き
-    this.loop = function(){
-         this.context.font = this.font;
-      //font変更
-      this.context.fillText(text,this.x,this.y);            
-    }
+//文字列の描画
+function ResultCharacter(scene,name,text,font,layer,x,y,width,height){
+  this.__proto__ = new Parts(scene,name,layer,x,y,width,height);
+  this.font = font;
+  //loop関数を上書き
+  this.loop = function(){
+       this.context.font = this.font;
+    //font変更
+    this.context.fillText(text,this.x,this.y);            
   }
+}
 

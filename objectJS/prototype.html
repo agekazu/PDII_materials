@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title> </title>
+  </head>
+  <body>
+    <script language="JavaScript">
+      var objA = new Object();
+      objA.prop1 = 10;
+      function Func1() {}
+      Func1.prototype = objA;
+
+      var objB = new Func1();
+      function Func2() {}
+      Func2.prototype = objB;
+
+      var objC = new Func2();
+
+      alert(objC.prop1);       // 10 と評価される。
+
+    </script>
+  </body>
+</html>
+
