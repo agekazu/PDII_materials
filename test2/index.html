@@ -1,18 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var date = new Date()
-      , key = String(date.getTime())
+       key = String(date.getTime())
       , socket = io.connect('http://localhost:8080')
       , user = io.connect('http://localhost:8080/'+key);
       console.log(user);
-
       console.log("client:生成したkey=>"+key);
       //Clientが接続成功するとconnectイベントが発生
-      socket.on('connect', function () {
+      socket.on('connect', function(){
         //クライアント側でmsg sendイベント発火
         socket.emit('key send',key);
         //生成したkeyを送信
@@ -28,7 +26,6 @@
           console.log(msg);
         });
       });
-
     </script>
     <meta charset="UTF-8">
     <title>socket.ioとExpressの組み合わせ </title>
@@ -38,4 +35,5 @@
     <h1>socket.ioのサンプルプログラム</h1>
   </body>
 </html>
+
 
