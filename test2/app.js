@@ -3,12 +3,9 @@ var app = require('express').createServer()
 , io = require('socket.io').listen(app)
 , mongo = require('mongodb')
 , Server = mongo.Server
-, Db = mongo.Db
-
-
+, Db = mongo.Db;
 //生成された部屋が格納される連想配列
-var roomList = {}
-, roomNum;
+var roomList = {};
 
 //connectionイベント
 io.sockets.on('connection', function (socket){
@@ -17,11 +14,9 @@ io.sockets.on('connection', function (socket){
   socket.on('key request',function(key){
     var date = new Date();
     var key = String(date.getTime());
-    socket.emit('key push',key);
-    //socket.broadcast.emit('key push', key);
     console.log("server :送ったkey=> " + key + " 受け取ったユーザのID=> " + socket.id);
-    roomList.roomNum = generateRoom(key);
-    roomNum++;
+    roomList[key] = generateRoom(key);
+    socket.emit('key push',key);
   });
   //disconnectイベント
   socket.on('disconnect', function(){
@@ -31,28 +26,19 @@ io.sockets.on('connection', function (socket){
 
 
 function generateRoom(key){
-  io
-  .of("/" + key)
-  .on("connection",function(socket){
-    console.log("server :key=> " + key + " で部屋を作成しました");
-  })
-  .on('msg send',function(msg){
-    user.emit('msg push',msg+'from'+key);
-  });
-
-  return io;
+  var room = io
+    .of("/" + key)
+    .on("connection",function(socket){
+      roomList[key]["members"].push(socket.id);
+      console.log("server :key=> " + key + "に" + socket.id +"というclientが接続しました");
+      socket.on('msg send',function(msg){
+        room.emit('msg push','from msg send');
+      });
+      /*clientとのやりとりはここから書いていく*/ 
+    });
+  return {"members":[]};
 }
 
-
-/*var user = io
-  .of('/'+key)
-  .on('connection',function(socket){
-  console.log(__key__+'connected');
-  }) 
-  .on('msg send',function(msg){
-  user.emit('msg push',msg+'from'+__key__);
-  });
-  */
 
 //httpサーバを立てる
 app.listen(8080);    
@@ -60,6 +46,7 @@ app.listen(8080);
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
+
 
 /**************
   以下、DBコード

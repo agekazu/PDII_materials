@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
+
   <head>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost:8080')
-      , user;
+      , room;
+      console.log(socket);
 
       socket.on('connect', function(){
         //クライアント側でkey requestイベント発火
@@ -12,17 +14,20 @@
         //keyを受信
         socket.on('key push',function(key){
           console.log("client: 受け取ったkey:"+key);
-          user = io.connect('http://localhost:8080/'+key);
-          console.log(user);
+          room = io.connect('http://localhost:8080/'+key);
+
+          room.on('connect',function(){
+            room.emit('msg send','userhoge');
+            room.on('msg push',function(msg){
+              console.log("client: msgが来ました=>" + msg);
+            });
+          });
+        /*serverとのやりとりはここから書いていく*/ 
         });
-
       });
 
-      user.on('connect',function(){
-        console.log("client: user.on実行");
-        user.emit('msg send','userhoge');
-      });
-      
+
+
     </script>
     <meta charset="UTF-8">
     <title>socket.ioとExpressの組み合わせ </title>
