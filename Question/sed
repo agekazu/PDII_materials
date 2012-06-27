@@ -1,7 +1,0 @@
-実行方法:
-: $ sed -f hello.sed hello.sed
-（hello.sed の内容は以下の通り, 2番目の hello.sed は 1byte以上のファイルであれば何でもよいが、存在を仮定できる hello.sed を例示した） 
- #n
- 1i\
- hello, world!
-

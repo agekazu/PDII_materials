@@ -1,3 +1,0 @@
- hello = writes "Hello, world!\n";
- hello;
-

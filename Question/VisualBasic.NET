@@ -1,6 +1,0 @@
-Public Class HelloWorldApp
- Shared Sub Main()
- System.Console.WriteLine("Hello, World!")
- End Sub
-End Class
-

@@ -1,4 +1,0 @@
- procedure main (args)
- write ("Hello, World!")
- end
-

@@ -1,5 +1,0 @@
-
-void hello() {
-   writeLine("Hello World!");
-}
-
