@@ -3,29 +3,26 @@
   <head>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var date = new Date()
-       key = String(date.getTime())
-      , socket = io.connect('http://localhost:8080')
-      , user = io.connect('http://localhost:8080/'+key);
-      console.log(user);
-      console.log("client:生成したkey=>"+key);
-      //Clientが接続成功するとconnectイベントが発生
+      var socket = io.connect('http://localhost:8080')
+      , user;
+
       socket.on('connect', function(){
-        //クライアント側でmsg sendイベント発火
-        socket.emit('key send',key);
-        //生成したkeyを送信
+        //クライアント側でkey requestイベント発火
+        socket.emit('key request');
+        //keyを受信
         socket.on('key push',function(key){
-          console.log("client:送ったkey:"+key);
+          console.log("client: 受け取ったkey:"+key);
+          user = io.connect('http://localhost:8080/'+key);
+          console.log(user);
         });
+
       });
 
       user.on('connect',function(){
-        console.log("user.on実行");
+        console.log("client: user.on実行");
         user.emit('msg send','userhoge');
-        user.emit('msg push',function(msg){
-          console.log(msg);
-        });
       });
+      
     </script>
     <meta charset="UTF-8">
     <title>socket.ioとExpressの組み合わせ </title>

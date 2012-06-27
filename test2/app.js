@@ -4,8 +4,55 @@ var app = require('express').createServer()
 , mongo = require('mongodb')
 , Server = mongo.Server
 , Db = mongo.Db
-, __key__= new String();
 
+
+//生成された部屋が格納される連想配列
+var roomList = {}
+, roomNum;
+
+//connectionイベント
+io.sockets.on('connection', function (socket){
+  console.log("server :" + socket.id + 'が接続しました');
+  //Clientで発火したkey sendイベントへのコールバック
+  socket.on('key request',function(key){
+    var date = new Date();
+    var key = String(date.getTime());
+    socket.emit('key push',key);
+    //socket.broadcast.emit('key push', key);
+    console.log("server :送ったkey=> " + key + " 受け取ったユーザのID=> " + socket.id);
+    roomList.roomNum = generateRoom(key);
+    roomNum++;
+  });
+  //disconnectイベント
+  socket.on('disconnect', function(){
+    console.log("server :" + socket.id + 'が切断しました。');
+  });
+});
+
+
+function generateRoom(key){
+  io
+  .of("/" + key)
+  .on("connection",function(socket){
+    console.log("server :key=> " + key + " で部屋を作成しました");
+  })
+  .on('msg send',function(msg){
+    user.emit('msg push',msg+'from'+key);
+  });
+
+  return io;
+}
+
+
+/*var user = io
+  .of('/'+key)
+  .on('connection',function(socket){
+  console.log(__key__+'connected');
+  }) 
+  .on('msg send',function(msg){
+  user.emit('msg push',msg+'from'+__key__);
+  });
+  */
 
 //httpサーバを立てる
 app.listen(8080);    
@@ -13,37 +60,6 @@ app.listen(8080);
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
-
-//connectionイベント
-io.sockets.on('connection', function (socket){
-  console.log(socket.id+'が接続しました');
-  //Clientで発火したkey sendイベントへのコールバック
-  socket.on('key send',function(key){
-    __key__=key;
-    socket.emit('key push',key)
-    socket.broadcast.emit('key push', key);
-  console.log("KEY=>" + key + " TO=>" + socket.id);
-  });
-  socket.on('msg send',function(msg){
-    socket.emit('msg push' ,msg);
-    socket.broadcast.emit('msg push' , msg);
-  });
-  //disconnectイベント
-  socket.on('disconnect', function(){
-    console.log(socket.id + 'が切断しました。');
-  });
-});
-
-var user = io
-.of('/'+__key__)
-.on('connection',function(socket){
-  console.log(__key__+'connected');
-  user.on('msg send',function(msg){
-    user.emit('msg push',msg+'from'+__key__);
-  });
-}); 
-
-
 
 /**************
   以下、DBコード
