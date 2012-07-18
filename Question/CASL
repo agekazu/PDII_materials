@@ -1,0 +1,9 @@
+<pre>
+     OUT TEXT,LEN
+
+
+LEN  DC  12
+TEXT DC  'HELLO
+          world!'
+</pre>
+

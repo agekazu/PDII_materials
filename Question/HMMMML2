@@ -1,0 +1,28 @@
+[[HMMMML2]]以降による記述は
+
+ ptint "Hello World"
+
+ p"Hello World"
+
+でも超好意的解釈により
+ print "Hello World";
+となって実行される。
+<!--
+以下のコードでも動作する。
+
+'''Java文法'''
+ System.out.println("Hello World");
+'''C文法'''
+ printf("Hello World");
+'''JavaScript文法'''
+ document.write("Hello World");
+'''ActionScript文法'''
+ trace("Hello World");
+'''Processing文法'''
+ println("Hello World");
+'''BASIC文法'''
+ PRINT "Hello World"
+'''HSP文法'''
+ mes "Hello World"
+-->
+

@@ -1,0 +1,7 @@
+
+C言語似の書法:
+println("Hello, world!")
+
+[[S式]]での書法:
+(println "Hello, world!")
+
